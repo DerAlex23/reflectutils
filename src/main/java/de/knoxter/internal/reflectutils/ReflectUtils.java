@@ -64,6 +64,8 @@ public class ReflectUtils {
     }
 
     private static String methodNameToPropertyName(String name, int offset) {
+        if(name.length() <= offset)
+            return "";
         String propName = name.substring(offset, offset +1).toLowerCase();
         if(name.length() > offset + 1)
             propName += name.substring(offset + 1);
@@ -134,17 +136,7 @@ public class ReflectUtils {
         }
         return clone;
     }
-
-    public static <T> T instantiateGenericClass(Class<T> clazz) {
-        T parsedObj;
-        try {
-            parsedObj = (T)clazz.getConstructor().newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException("Could not instantiate '" + clazz + "': " + e.getMessage());
-        }
-        return parsedObj;
-    }
-
+    
     public static <T> T instantiateClass(Class<T> clazz) {
         T parsedObj;
         try {
